@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  panel_app:
+    build:
+      context: .
+    ports:
+      - "5006:5006"  # Panel mặc định chạy trên cổng 5006
+    volumes:
+      - .:/app
+    environment:
+      - PANEL_ENV=development  # Có thể thay thế bằng các biến môi trường cần thiết
+    command: python -m panel serve main.py --address 0.0.0.0 --port 5006  # Lệnh để chạy ứng dụng Panel
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
